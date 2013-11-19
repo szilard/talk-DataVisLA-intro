@@ -1,0 +1,170 @@
+
+DataVis LA Intro
+========================================================
+
+Szilárd Pafka, PhD <br>
+Chief Scientist, Epoch
+
+DataVis LA meetup <br>
+Nov 2013
+
+
+========================================================
+
+![](figs/szilard.png)
+
+
+========================================================
+
+![](figs/crisp-dm.png)
+
+
+========================================================
+
+![](figs/minority-report.jpeg)
+
+
+========================================================
+
+![](figs/eda.png)
+![](figs/prim9.png)
+
+
+========================================================
+
+![](figs/minard-bubble.jpeg)
+
+
+========================================================
+
+![](figs/meetup-R.png)
+![](figs/meetup-ml.png)
+
+![](figs/meetup-hadoop.png)
+
+
+========================================================
+
+![](figs/meetup-R.png)
+![](figs/meetup-ml.png)
+
+![](figs/meetup-hadoop.png)
+![](figs/meetup-datavis.png)
+
+
+========================================================
+
+![](figs/other-js.png)
+![](figs/other-infographics.png)
+![](figs/other-tableau.png)
+
+
+========================================================
+
+![](figs/other-journalism.png)
+![](figs/other-art.png)
+
+
+========================================================
+
+![](figs/Rlogo.jpeg)
+![](figs/ggplot2.png)
+
+
+========================================================
+
+```{r}
+x <- 1:4
+gr <- c("a","a","b","b")
+y <- x + rnorm(4)
+d <- data.frame(gr, x, y)
+print(d)
+md <- lm(y ~ x, d)
+```
+
+
+========================================================
+
+![](figs/bertin.jpg)
+![](figs/grgr.png)
+![](figs/tableau.png)
+
+
+========================================================
+
+![](figs/rosling.jpg)
+
+
+========================================================
+
+```{r echo=FALSE, message=FALSE}
+library(ggplot2)
+```
+
+<br>
+```{r}
+d <- read.csv("data/gapminder.csv", sep="\t")
+```
+
+<br>
+- Country
+- Year
+- Population
+- Continent
+- Life expectancy
+- GDP per capita
+
+```{r echo=FALSE}
+d <- subset(d, pop>=1e6 & yr %in% c(1962,1977,1992,2007))
+d <- transform(d, pop = pop/1e6)
+```
+
+
+========================================================
+
+```{r fig.width=10}
+ggplot() + geom_point(data = d, mapping = aes(x = gdpcap, y = lifeexp))
+```
+
+
+========================================================
+
+```{r fig.width=10}
+ggplot(d) + geom_point(aes(x = gdpcap, y = lifeexp)) + scale_x_log10()
+```
+
+
+========================================================
+
+```{r fig.width=10}
+ggplot(d) + geom_point(aes(x = gdpcap, y = lifeexp, color = contin)) + scale_x_log10()
+```
+
+
+========================================================
+
+```{r fig.width=10}
+ggplot(d) + geom_point(aes(x = gdpcap, y = lifeexp, color = contin, size = pop)) + scale_x_log10()
+```
+
+
+========================================================
+
+```{r fig.width=10}
+ggplot(d) + geom_point(aes(x = gdpcap, y = lifeexp, color = contin, size = pop)) + scale_x_log10() + scale_size(range = c(2,10))
+```
+
+
+========================================================
+
+```{r fig.width=10}
+ggplot(d) + geom_point(aes(x = gdpcap, y = lifeexp, color = contin, size = pop)) + scale_x_log10() + scale_size(range = c(2,10)) + facet_wrap( ~ yr)
+```
+
+
+========================================================
+
+```{r echo=FALSE, fig.width=10}
+ggplot(d) + geom_point(aes(x = gdpcap, y = lifeexp, color = contin, size = pop)) + scale_x_log10() + scale_size(range = c(2,10)) + facet_wrap( ~ yr) + xlab(NULL) + ylab(NULL)
+```
+
